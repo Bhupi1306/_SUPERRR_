@@ -1,5 +1,6 @@
 import './App.css'
-import { Todo, WeatherWidget, Qoute, Greeting, DateTime } from '../components'
+import { Todo, WeatherWidget, Qoute, Greeting, DateTime} from '../components'
+import Goog from '../components/searchengine/goog'
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
 
         <WeatherWidget/>
         <div className='grid grid-rows-3 h-full'>
+          <Goog/>
           <DateTime/>
           <Greeting/>
         </div>

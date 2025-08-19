@@ -1,5 +1,5 @@
 import './App.css'
-import { Todo, WeatherWidget, Qoute, Greeting } from '../components'
+import { Todo, WeatherWidget, Qoute, Greeting, DateTime } from '../components'
 
 export default function App() {
   return (
@@ -8,7 +8,10 @@ export default function App() {
       >
 
         <WeatherWidget/>
-        <Greeting/>
+        <div className='grid grid-rows-3 h-full'>
+          <DateTime/>
+          <Greeting/>
+        </div>
         <Todo/>
         <Qoute/>
 

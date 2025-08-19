@@ -19,6 +19,6 @@ export default defineManifest({
     default_popup: 'src/popup/index.html',
   },
  chrome_url_overrides: {
-    newtab: "src/popup/index.html"
+    newtab: "src/main/index.html"
   }
 })

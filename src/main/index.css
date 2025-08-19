@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-
-.inter-regular {
+.root{
   font-family: "Inter", sans-serif;
+}
+.inter-regular {
+  font-family: "Inter";
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;

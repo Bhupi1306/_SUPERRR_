@@ -6,6 +6,7 @@ import zip from 'vite-plugin-zip-pack'
 import manifest from './manifest.config.js'
 import tailwindcss from '@tailwindcss/vite'
 import { name, version } from './package.json'
+import styled from '@emotion/styled'
 
 export default defineConfig({
   resolve: {

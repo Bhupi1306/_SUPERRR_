@@ -20,7 +20,7 @@ export const DateTime = () => {
 
             <p className="text-6xl
             md:text-[7rem]
-            xl:text-[8rem]">{time.getHours()<=12? time.getHours(): time.getHours() -12 }:{time.getMinutes()}</p>
+            xl:text-[8rem]">{time.getHours()<=12? time.getHours(): time.getHours() -12 }:{time.getMinutes()<10?"0"+time.getMinutes():time.getMinutes()}</p>
         </div>
     )
 }

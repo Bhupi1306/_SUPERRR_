@@ -40,7 +40,8 @@ const StyledSearchbar = styled.input`
 
 export default function Goog (){
     
-     const engine: string =  "duckduckgo.com/"
+     const engine: string =  "www.google.com/search" //GOogle
+     //"duckduckgo.com"
     
     const redirectToSearch = (query: string) => {
    

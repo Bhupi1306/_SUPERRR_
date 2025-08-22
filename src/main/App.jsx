@@ -1,7 +1,7 @@
 import './App.css'
 import { Todo, WeatherWidget, Qoute, Greeting, DateTime} from '../components'
 import { useState } from 'react'
-// import Goog from '../components/searchengine/goog'
+import Goog from '../components/searchengine/goog'
 
 export default function App() {
 
@@ -17,7 +17,7 @@ export default function App() {
         />
 
         <div className='grid grid-rows-3 h-full'>
-          {/* <Goog/> */}
+          <Goog/> 
 
           <DateTime
             weatherMode = {weatherMode}

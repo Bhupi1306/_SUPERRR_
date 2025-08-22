@@ -3,6 +3,34 @@ import { Task } from "./Task"
 
 export const Todo = () => {
     const [expand, setExpand] = useState(false)
+    const [tasks, setTasks] = useState([
+        {id: 1, taskName: "Bring butter", done: true},
+        {id: 2, taskName: "Task 2", done: false},
+        {id: 3, taskName: "Task 3", done: false},
+    ])
+     const toggleTask = (id) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, done: !task.done } : task
+      )
+    )
+  }
+  const editTask = (id, newName) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, taskName: newName } : task
+      )
+    )
+  }
+ const deleteTask = (id) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id))
+  }
+  const addTask = (taskName) => {
+    const newTask = {
+      id: Date.now(),
+        taskName: taskName,
+        done: false,}
+    setTasks((prev) => [...prev, newTask])}    
 
     return (
         <>
@@ -14,16 +42,16 @@ export const Todo = () => {
 
                 {expand && (
                     <>
-                    <input type="text" placeholder="+ Add task" className="w-[13rem] mt-2 p-1 focus:outline-none text-sm" />
+                    <input onChange={(e)=>addTask(e.target.value)} type="text" placeholder="+ Add task" className="w-[13rem] mt-2 p-1 focus:outline-none text-sm" />
                     <hr className="mb-3"/>
                     </>
                 )}
 
-                <Task/>
-                <Task/>
-                <Task/>
+              {tasks.map((task) => (
+        <Task key={task.id} {...task} onToggle={() => toggleTask(task.id)} onEdit ={editTask} onDelete={()=> deleteTask(task.id)} />
+      ))}
 
-                {!expand && (<p className="text-[0.875rem] leading-[1rem] mt-3">...view more</p>)}
+                {!expand && (<p onClick={()=> {setExpand(prev => !prev)}} className="text-[0.875rem] leading-[1rem] mt-3 cursor-pointer">...view more</p>)}
             </div>
         </>
     )

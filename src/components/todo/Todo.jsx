@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { Task } from "./Task"
+import { useTasks } from "./useTask"
 
 export const Todo = () => {
     const [expand, setExpand] = useState(false)
-    const [tasks, setTasks] = useState([
-        {id: 1, taskName: "Bring butter", done: true},
-        {id: 2, taskName: "Task 2", done: false},
-        {id: 3, taskName: "Task 3", done: false},
-    ])
+    const [tasks, setTasks] = useTasks()
+
+
      const toggleTask = (id) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -42,7 +41,7 @@ export const Todo = () => {
 
                 {expand && (
                     <>
-                    <input onChange={(e)=>addTask(e.target.value)} type="text" placeholder="+ Add task" className="w-[13rem] mt-2 p-1 focus:outline-none text-sm" />
+                    <input  onKeyUp={e => e.key === "Enter" && addTask(e.currentTarget.value)} type="text" placeholder="+ Add task" className="w-[13rem] mt-2 p-1 focus:outline-none text-sm" />
                     <hr className="mb-3"/>
                     </>
                 )}

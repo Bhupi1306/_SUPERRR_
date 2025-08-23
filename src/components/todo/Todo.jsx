@@ -18,8 +18,8 @@ export const Todo = () => {
     }
 
     if (expand) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("touchstart", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("touchstart", handleClickOutside)
     }
 
     return () => {

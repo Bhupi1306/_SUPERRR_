@@ -35,7 +35,7 @@ export const Todo = () => {
     return (
         <>
             <div 
-                className={`absolute  bg-white/20 backdrop-blur-md rounded overflow-auto text-white p-4 w-64 shadow-lg 
+                className={`absolute  bg-white/10 backdrop-blur-sm rounded overflow-auto text-white p-4 w-64 shadow-lg 
                 ${expand? "h-full bottom-0 right-0 w-[20rem] pt-8 pl-5" :"bottom-10 right-10 rounded-md"}`
             }>
                 <h3 className="mb-2 font-semibold text-[1.1rem]">Todo</h3>

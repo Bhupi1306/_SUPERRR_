@@ -73,8 +73,7 @@ export const Todo = () => {
                             <div className="bg-white/50 h-0.5 w-full"></div>
                         </div> */}
 
-                        <div className={`inline ml-3 mt-2 text-[0.9rem] opacity-60 transition duration-100 cursor-pointer
-                            ${expand?"":"hidden"} 
+                        <div className={`ml-3 mt-2 text-[0.9rem] opacity-60 transition duration-100 cursor-pointer ${expand?"":"hidden"} w-fit
                             hover:opacity-100`}>
                             <p className="inline">+ Add task</p>
                         </div>

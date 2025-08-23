@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div>
 
-      <div className="bg-[url('https://images.pexels.com/photos/421759/pexels-photo-421759.jpeg')] relative h-screen max-w-screen bg-cover bg-center overflow-hidden" 
+      <div className="bg-black relative h-screen max-w-screen bg-cover bg-center overflow-hidden" 
       >
 
         <WeatherWidget

@@ -11,6 +11,7 @@ export default defineManifest({
   permissions: [
     'sidePanel',
     'contentSettings',
+    'storage',
   ],
   action: {
     default_icon: {
@@ -20,5 +21,5 @@ export default defineManifest({
   },
  chrome_url_overrides: {
     newtab: "src/main/index.html"
-  }
+  },
 })

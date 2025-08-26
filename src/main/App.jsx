@@ -1,5 +1,5 @@
 import './App.css'
-import { Todo, WeatherWidget, Qoute, Greeting, DateTime} from '../components'
+import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar} from '../components'
 import { useState } from 'react'
 import Goog from '../components/searchengine/goog'
 
@@ -10,7 +10,7 @@ export default function App() {
   return (
     <div>
 
-      <div className="bg-black relative h-screen max-w-screen bg-cover bg-center overflow-hidden" 
+      <div className="bg-[url(https://images.pexels.com/photos/421759/pexels-photo-421759.jpeg)] relative h-screen max-w-screen bg-cover bg-center overflow-hidden bg[" 
       >
 
         <WeatherWidget
@@ -18,11 +18,19 @@ export default function App() {
         />
 
         <div className='grid grid-rows-3 h-full'>
-          <Goog/> 
+          {/* <Goog/>  */}
 
-          <DateTime
-            weatherMode = {weatherMode}
-          />
+          <div className='grid grid-cols-3 place-items-center'>
+            <div className=''></div>
+            <div className=''>
+              <DateTime
+                weatherMode = {weatherMode}
+              /></div>
+
+            <div className=' self-start justify-self-end pr-10 pt-7'><SearchBar/></div>
+          </div>
+
+          
           
           <Greeting/>
         </div>

@@ -1,19 +1,74 @@
 import './App.css'
-import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar} from '../components'
-import { useState } from 'react'
-import Goog from '../components/searchengine/goog'
+import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar, WallpaperAPI} from '../components'
+import { useEffect, useState } from 'react'
+import { saveImageToStorage } from '../components/Wallpaper'
+
 
 export default function App() {
 
   const [weatherMode, setWeatherMode] = useState(false)
+  const [wallpaperURI, setWallpaperURI] = useState("")
+  const [refreshTime, setRefreshTime] = useState(1) // in mins
+
+  // Some helper function
+  const wallpaperApi = async() => {
+    const url = await WallpaperAPI("sunny")
+    await saveImageToStorage(url)
+    
+  }
+  
+
+  // Changing wallpaper after x minutes
+  useEffect(() => {
+      const wallpaperChanging = () => {
+        const save = async() => {
+            await wallpaperApi()
+        }
+        save()
+      chrome.storage.local.get("wallpaper", (URI) => {
+        setWallpaperURI(URI)
+      })
+    }
+
+    const intervalId = setInterval(() => {
+            chrome.storage.local.get("time", (time) => {
+              const cur_time = new Date()
+              if(Math.floor((cur_time.getTime() - time.time) / (1000 * 60)) >= refreshTime){
+                wallpaperChanging()
+              }
+            })
+        }, 1000);
+  },[])
+
+  // Initially set the wallpaper 
+  useEffect(() => {
+        chrome.storage.local.get("wallpaper", (URI) => {
+          if(!URI.wallpaper){
+            const save = async() => {
+                await wallpaperApi()
+            }
+            save()
+            chrome.storage.local.get("wallpaper", (URL) => {
+              setWallpaperURI(URL)
+            })
+            return
+          }
+          setWallpaperURI(URI)
+        })
+  },[])
+
+
+
 
   return (
     <div>
 
-      <div className="bg-[url(https://images.pexels.com/photos/421759/pexels-photo-421759.jpeg)] relative h-screen max-w-screen bg-cover bg-center overflow-hidden bg[" 
+      <div id='Bg' className={`  bg-cover bg-center `} 
+      style={{ backgroundImage: `url(${wallpaperURI.wallpaper})` }}
       >
-
-        <WeatherWidget
+        <div className="absolute inset-0 bg-black/20"></div> 
+        <div className='z-10 relative overflow-hidden h-screen max-w-screen'> 
+          <WeatherWidget
           weatherMode = {weatherMode}
         />
 
@@ -29,14 +84,13 @@ export default function App() {
 
             <div className=' self-start justify-self-end pr-10 pt-7'><SearchBar/></div>
           </div>
-
-          
-          
           <Greeting/>
         </div>
+        
         <Todo/>
         <Qoute/>
 
+        </div>
       </div>
 
     </div>

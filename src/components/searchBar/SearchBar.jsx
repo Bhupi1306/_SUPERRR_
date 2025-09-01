@@ -20,18 +20,45 @@ const searchEngines = [
 
 export const SearchBar = () => {
 
+    
+
     const[searching, setSearching] = useState(false)
-    const[engine, setEngine] = useState(searchEngines[0])
+    const[engine, setEngine] = useState()
+    const[showEngines, setShowEngines] = useState(false)
     const searchRef = useRef(null)
     const inputRef = useRef(null)
+
+
+
+    // Todo retrieve from storage.local
+    useEffect(() => {
+        // const gettingEngine = () => {
+        //     chrome.storage.local.get("Engine", (item)=>{
+        //         if(chrome.runtime.lastError){
+        //             setEngine(searchEngines[0])
+        //             console.log("RUnn")
+        //             return
+        //         }
+
+        //         setEngine(item?.Engine || searchEngines[0])
+        //         console.log(item.Engine)
+
+        //     })
+        // }
+
+        // gettingEngine()
+
+        setEngine(searchEngines[0])
+    },[] )
+    
 
     // Handling click outside the search bar
     useEffect(() => {
             
     function handleClickOutside(event) {
         if (searchRef.current && !searchRef.current.contains(event.target)) {
-        console.log("Clicked outside, collapsing menu")
         setSearching(false)
+        setShowEngines(false)
         }
     }
 
@@ -80,6 +107,14 @@ export const SearchBar = () => {
             window.location.href = engine.engine.replace(queryToken, encodeURIComponent(query))
           }
       }
+
+    // Handling click in engine menu
+    const changeEngine = (engine) => {
+        setEngine(engine)
+        chrome.storage.local.set({"Engine": engine})
+        setShowEngines(false)
+    }
+
     
 
     return (
@@ -90,13 +125,15 @@ export const SearchBar = () => {
                     className="row-start-2 flex justify-center items-center rounded-md bg-gray-50/85  w-[40rem] relative"
                 >
                     
-                    <div className="px-4 py-2  border-r-1 border-gray-500/20 absolute left-0">{engine.icon}</div>
-                    <div className="bg-gray-50/70  absolute top-full left-0  p-3 rounded-md mt-2">
-                        {searchEngines.map(search => (<div key={search.id} className="flex space-x-5 mb-1 items-center  text-[0.9rem] justify-between text-left text-black/85">
-                            <div>{search.icon}</div>
-                            <div id={search.id} className="w-full" onClick={(e)=> {console.log("Clicked",e.target.id)}}>{search.id}</div>
+                    <div className="px-4 py-2  border-r-1 border-gray-500/20 absolute left-0" onClick={() => {setShowEngines((prev) => (!prev))}}>{engine?.icon}</div>
+                    {showEngines && (<div className="bg-gray-50/70  absolute top-full left-0  p-3 rounded-md mt-2">
+                        {searchEngines.map(search => (<div key={search?.id} className="flex space-x-5 mb-1 items-center  text-[0.9rem] justify-between text-left text-black/80 opacity-80 cursor-default 
+                        transition duration-100 hover:opacity-100"
+                        onClick={()=> {changeEngine(search)}}>
+                            <div>{search?.icon}</div>
+                            <div id={search?.id} className="w-full">{search?.id}</div>
                         </div>))}
-                    </div>
+                    </div>)}
 
                     <div className="absolute right-3"><SearchIcon size={22} color="#00000055"/></div>
 
@@ -116,7 +153,6 @@ export const SearchBar = () => {
                 <input type="text" placeholder="Ctrl + /"  className="h-full w-full pl-8 relative placeholder-gray-50 focus:outline-none"/>
                 <SearchIcon size={23} color="#fffffff7" className="absolute left-1 top-1"/>
             </div>
-            
         </>
     )
 }

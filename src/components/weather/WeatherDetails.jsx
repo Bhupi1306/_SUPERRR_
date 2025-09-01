@@ -15,7 +15,7 @@ export const WeatherDetails = ({setCity, city}) => {
         inputRef.current.focus();
     }
     }, [search]);
-    
+    /*Basic input for manual cities*/
     const ChangeInput = (e) => {
         setInput(e.target.value)
 
@@ -34,7 +34,7 @@ export const WeatherDetails = ({setCity, city}) => {
     const MakeRequest = (e) => {
         if(e.key == "Enter"){
             setInterval(() => {
-                fetch(`https://geocode.maps.co/search?q=${e.target.value}&api_key=68b5282f71432255704280dvu134533`)
+                fetch(`https://geocode.maps.co/search?q=${e.target.value}&api_key=${import.meta.env.VITE_LOC_API}`)
                 .then(response => {
                     return response.json()
                 })
@@ -47,7 +47,7 @@ export const WeatherDetails = ({setCity, city}) => {
             }, 1000);
         }
     }
-
+/*Handle click on city from search results*/
     const handleClickCity = (item) => {
 
         const displayNameArray = item.display_name.split(",")

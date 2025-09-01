@@ -9,7 +9,6 @@ export const WeatherDetails = ({setCity, city}) => {
 
     const inputRef = useRef(null)
 
-    // 68b5282f71432255704280dvu134533
 
     useEffect(() => {
     if (search && inputRef.current) {
@@ -20,7 +19,7 @@ export const WeatherDetails = ({setCity, city}) => {
     const ChangeInput = (e) => {
         setInput(e.target.value)
 
-        fetch(`https://geocode.maps.co/search?q=${e.target.value}&api_key=68b5282f71432255704280dvu134533`)
+        fetch(`https://geocode.maps.co/search?q=${e.target.value}&api_key=${import.meta.env.VITE_LOC_API}`)
             .then(response => {
                 return response.json()
             })

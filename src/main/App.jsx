@@ -8,11 +8,11 @@ export default function App() {
 
   const [weatherMode, setWeatherMode] = useState(false)
   const [wallpaperURI, setWallpaperURI] = useState("")
-  const [refreshTime, setRefreshTime] = useState(1) // in mins
+  const [refreshTime, setRefreshTime] = useState(30) // in mins
 
   // Some helper function
   const wallpaperApi = async() => {
-    const url = await WallpaperAPI("sunny")
+    const url = await WallpaperAPI("snow")
     await saveImageToStorage(url)
     
   }

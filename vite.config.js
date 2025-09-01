@@ -15,7 +15,9 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(),
+    react({
+      fastRefresh: false
+    }),
      tailwindcss(),
     crx({ manifest }),
     zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` }),

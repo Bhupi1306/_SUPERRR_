@@ -76,45 +76,32 @@ export const Todo = () => {
 
 
                     <div className="max-h-[26rem] overflow-y-auto overflow-x-hidden">
-                        <AnimatePresence>
                         {(expand ? tasks : tasks.slice(0, 3)).map((task) => (
-                            <motion.div
-                         key={task.id}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        transition={{ duration: 0.3 }}
-                            >
-                            <Task key={task.id} {...task} onToggle={() => toggleTask(task.id)} onEdit ={editTask} onDelete={()=> deleteTask(task.id)} />
+                            <motion.div>
+                                <Task key={task.id} {...task} onToggle={() => toggleTask(task.id)} onEdit ={editTask} onDelete={()=> deleteTask(task.id)} />
                             </motion.div>
                         ))}
-                        </AnimatePresence>
                        
 
                         <div className={`ml-3 mt-2 text-[0.9rem] opacity-60 transition duration-100 cursor-pointer ${expand?"":"hidden"} w-fit
                             hover:opacity-100`}>
-                           <AnimatePresence >
-                           {!addEventListener && (<>
-                             
-                                <motion.div
-                            key="add-task"
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 10 }}
-                            >
-                            <p className={`inline`}  
-                                onClick={()=>{setAddEventListener(prev=>!prev)}}
-                                >+ Add task
-                                </p>
-                                </motion.div>
-                                </>)}
-                                </AnimatePresence>
+                            {!addEventListener && (
+                                <>
+                                    <motion.div>
+                                        <p className={`inline`}  
+                                            onClick={()=>{setAddEventListener(prev=>!prev)}}
+                                        >
+                                            + Add task
+                                        </p>
+                                    </motion.div>
+                                    </>
+                                )}
 
                             {addEventListener && ( 
-                            <>
-                            <input  onKeyUp={e => e.key === "Enter" && addTask(e.currentTarget.value)} type="text" placeholder="+ Add task" className="w-[13rem] mt-2 p-1 focus:outline-none text-sm" />
-                            <hr className="mb-3"/>
-                            </>
+                                <>
+                                    <input  onKeyUp={e => e.key === "Enter" && addTask(e.currentTarget.value)} type="text" placeholder="+ Add task" className="w-[13rem] mt-2 p-1 focus:outline-none text-sm" />
+                                    <hr className="mb-3"/>
+                                </>
                             )}
                         </div>
                     </div>

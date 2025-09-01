@@ -3,7 +3,8 @@ import {WeatherWidget} from "./weather/WeatherWidget"
 import { Qoute } from "./Qoute";
 import { Greeting } from "./Greeting";
 import { DateTime } from "./DateTime";
-import { SearchBar } from "./searchBar/searchBar";
+import { SearchBar } from "./searchBar/SearchBar";
+import { WallpaperAPI } from "./Wallpaper";
 
 export{
     Todo,
@@ -11,5 +12,6 @@ export{
     Qoute,
     Greeting,
     DateTime,
-    SearchBar
+    SearchBar,
+    WallpaperAPI
 }

@@ -139,7 +139,7 @@ export const SearchBar = () => {
 
                     <input ref={inputRef} type="text" 
                         className=" w-full p-3 pl-13 rounded-md border-1 border-transparent focus:outline-none text-[1rem] text-black/85
-                        focus:shadow-2xl focus:border-black/35" 
+                        focus:shadow-2xl" 
                         placeholder="Search anything"
                         onKeyUp={e => e.key === "Enter" && redirectToSearch(e.currentTarget.value)}
                      />

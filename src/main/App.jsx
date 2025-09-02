@@ -77,18 +77,22 @@ export default function App() {
 
           <div className='grid grid-cols-3 place-items-center'>
             <div className=''></div>
+
             <div className=''>
               <DateTime
                 weatherMode = {weatherMode}
-              /></div>
+              />
+            </div>
 
             <div className=' self-start justify-self-end pr-10 pt-7'><SearchBar/></div>
           </div>
           <Greeting/>
+        <div className='grid grid-cols-4 mb-7'>
+          <div></div>
+          <div className='col-span-2 justify-self-center place-self-end'><Qoute/></div>
+          <div className='justify-self-center place-self-end'><Todo/></div>
         </div>
-        
-        <Todo/>
-        <Qoute/>
+        </div>
 
         </div>
       </div>

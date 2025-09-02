@@ -12,6 +12,7 @@ export default defineManifest({
     'sidePanel',
     'contentSettings',
     'storage',
+    'geolocation',
   ],
   action: {
     default_icon: {

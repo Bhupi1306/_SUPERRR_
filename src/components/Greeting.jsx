@@ -12,7 +12,7 @@ export const Greeting = () => {
 
     return (
          <div className="flex flex-col items-center justify-center text-white">
-            <p className=" font-light text-[50px] lg:text[80px] tracking-[0.8em]">Good {time.getHours() < 12? "Morning": (time.getHours() < 16? "Afternoon": "Evening" )}</p>
+            <p className=" font-light text-[50px] text-right lg:text[80px] tracking-[0.8em] pl-10">Good {time.getHours() < 12? "Morning": (time.getHours() < 16? "Afternoon": "Evening" )}</p>
         </div>
     )
 }

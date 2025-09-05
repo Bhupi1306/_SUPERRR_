@@ -11,6 +11,7 @@ export const Task = ({ id, taskName, done, onToggle,onEdit,onDelete }) => {
 
     const [editing, setEditing] = useState(false);
     const inputRef = useRef(null);
+    const [pencilOpacity, setPencilOpacity] = useState(0)
 
 
 
@@ -48,17 +49,20 @@ export const Task = ({ id, taskName, done, onToggle,onEdit,onDelete }) => {
             <div className=" w-full flex items-center relative"> 
 
               <AnimatePresence>    
-                  {editing && (<motion.div
-                  initial={{scaleX:0}}
-                  animate={{scaleX:1, transition: {duration: 0.3, type: "spring", bounce: 0.5}}}
-                  onAnimationComplete={() => {inputRef.current?.focus()}}
+                    {editing && (<motion.div
+                    initial={{scaleX:0}}
+                    animate={{scaleX:1, transition: {duration: 0.3, type: "spring", bounce: 0.5}}}
+                    onAnimationComplete={() => {inputRef.current?.focus()}}
 
-                    className="absolute left-0 bottom-0 h-0.5 bg-gray-50/50 w-full"
-                  >
-                  </motion.div>)} 
+                      className="absolute left-0 bottom-0 h-0.5 bg-gray-50/50 w-full"
+                    >
+                    </motion.div>)} 
                 </AnimatePresence> 
 
-
+                <motion.dev
+                  onHoverStart={()=>{setPencilOpacity(60)}}
+                  onHoverEnd={() => {setPencilOpacity(0)}}
+                >
                 <input 
                 ref={inputRef}
                 type="text " 
@@ -74,24 +78,15 @@ export const Task = ({ id, taskName, done, onToggle,onEdit,onDelete }) => {
                     className={`relative w-[10rem] text-[1.05rem] leading-0.5  text-white ml-1 px-1 border-b-1 border-transparent
                     focus:outline-none cursor-default ${editing ? "cursor-text" : "cursor-default"}`}
                     />
+                  </motion.dev>
 
-                <Pencil size={14} color="#ffffffaa" className="ml-1 opacity-60 hover:opacity-100 cursor-pointer"
+                <Pencil size={14} color="#ffffffaa" className={`ml-1 opacity-${pencilOpacity} hover:opacity-100 cursor-pointer`}
                             onClick={() => {setEditing((prev) => (!prev))}}
                     ></Pencil>
             </div>
         </div>
     )
 }
-
-
-                // <span className={`${!done? "strikethrough":""}`}
-                // onAnimationEnd={() => {
-                //   if (done) {
-                //     onDelete(id);
-                //     }
-                //   }}
-                // ></span>
-
 
 
 

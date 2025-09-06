@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import SearchIcon from "../svg/SearchIcon"
 import SunnyIcon from "../svg/weather_icons/Sunny"
+import FutureWeather from "./FutureWeather"
 
-export const WeatherDetails = ({setCity, city}) => {
+
+export const WeatherDetails = ({setCity, city,futureWeather,weathercurrent,locomoco}) => {
 
     const [input, setInput] = useState("")
     const [search, setSearch] = useState(false)
@@ -64,69 +66,40 @@ export const WeatherDetails = ({setCity, city}) => {
 
     return (
         <>
-        <div className="relative">
+        {weathercurrent || locomoco || futureWeather ? (<div className="relative">
             <div className=" max-w-100 bg-amber-50/20 backdrop-blur-xs absolute top-20 left-4 p-5 rounded-md text-white/90">
                 <div className={`${search?"opacity-0":""} `}>
                     <div className="flex justify-between items-center">
-                        <div className="text-[1.1rem]  text-shadow-md">{city}</div>
+                        <div className="text-[1.1rem]  text-shadow-md">{locomoco.name},{locomoco.country}</div>
                         <div className="opacity-50 hover:opacity-100" onClick={()=>{setSearch(true)}}><SearchIcon color="#ffffff" size={20}/></div>
                     </div>
                     <div className="mt-5 text-[0.9rem]">
                         <div className="flex justify-between space-x-6  p-5 text-shadow-md bg-amber-50/7 rounded-md">
                             <div>
-                                <SunnyIcon size={40} stroke="#ffffff"/>
-                                <p className="mt-2 text-md text-shadow-lg">Sunny</p>
+                    {weathercurrent.condition.icon && <img src={`https:${weathercurrent.condition.icon}`} alt={`${weathercurrent.condition.text}`} className="  inline w-7 h-7 mr-2"/>}
+                                <p className="mt-2 text-md text-shadow-lg">{weathercurrent.condition.text}</p>
                             </div>
-
+                        
                             <div>
-                                <p>Max: 28&deg;C</p>
-                                <p className="mt-2">Min: 14&deg;C</p>
+                                <p>Max: {futureWeather[0].day.maxtemp_c}°C</p>
+                                <p className="mt-2">Min: {futureWeather[0].day.mintemp_c}°C</p>
                             </div>
 
                             {/**Use Icons instead of names */}
                             <div className="text-center">
-                                <p>Rain</p>
-                                <p className="mt-2">2%</p>
+                                <p>Chance of Rain</p>
+                                <p className="mt-2">{futureWeather[0].day.daily_chance_of_rain}%</p>
                             </div>
 
                             <div className="text-center">
-                                <p>Wind</p>
-                                <p className="mt-2">23mph</p>
+                                <p>Wind Speed</p>
+                                <p className="mt-2">{weathercurrent.wind_kph} kph</p>
                             </div>
                         </div>
                         <div className="flex mt-5">
-                            <div className=" px-7 border-r-2 border-gray-50/30 text-shadow-md">
-                                <p className="text-center mb-2">Sun</p>
-                                <SunnyIcon size={35} stroke="#ffffffdd" />
-                                <div className="text-center text-[.8rem]  mt-2">
-                                    <p className="text-white">35&deg;C</p>
-                                    <p className="text-white/70">29&deg;C</p>
-                                </div>
-                            </div>
-                            <div className=" px-7 border-r-2 border-gray-50/30 text-shadow-md">
-                                <p className="text-center mb-2">Mon</p>
-                                <SunnyIcon size={35} stroke="#ffffffdd" />
-                                <div className="text-center text-[.8rem]  mt-2">
-                                    <p className="text-white">35&deg;C</p>
-                                    <p className="text-white/70">29&deg;C</p>
-                                </div>
-                            </div>
-                            <div className=" px-7 border-r-2 border-gray-50/30 text-shadow-md">
-                                <p className="text-center mb-2">Tue</p>
-                                <SunnyIcon size={35} stroke="#ffffffdd" />
-                                <div className="text-center text-[.8rem]  mt-2">
-                                    <p className="text-white">35&deg;C</p>
-                                    <p className="text-white/70">29&deg;C</p>
-                                </div>
-                            </div>
-                            <div className=" px-7 text-shadow-md">
-                                <p className="text-center mb-2">Thur</p>
-                                <SunnyIcon size={35} stroke="#ffffffdd" />
-                                <div className="text-center text-[.8rem]  mt-2">
-                                    <p className="text-white">35&deg;C</p>
-                                    <p className="text-white/70">29&deg;C</p>
-                                </div>
-                            </div>
+                        {futureWeather.map((day, index) => (
+                    <FutureWeather key={index} data={day} />
+                        ))}
                         </div>
                     </div>
                 </div>
@@ -153,7 +126,7 @@ export const WeatherDetails = ({setCity, city}) => {
                     </div>
                 </div>
             </div>
-            </div>
+            </div>) : <p>Loading...</p>}
         </>
     )
 }

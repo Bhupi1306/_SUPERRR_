@@ -1,5 +1,5 @@
 import './App.css'
-import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar, WallpaperAPI} from '../components'
+import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar, WallpaperAPI , Setting} from '../components'
 import { useEffect, useState } from 'react'
 import { saveImageToStorage } from '../components/Wallpaper'
 
@@ -88,7 +88,9 @@ export default function App() {
           </div>
           <Greeting/>
         <div className='grid grid-cols-4 mb-7'>
-          <div></div>
+          <div>
+            <Setting/> 
+          </div>
           <div className='col-span-2 justify-self-center place-self-end'><Qoute/></div>
           <div className='justify-self-center place-self-end'><Todo/></div>
         </div>

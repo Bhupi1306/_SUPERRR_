@@ -5,6 +5,7 @@ import { Greeting } from "./Greeting";
 import { DateTime } from "./DateTime";
 import { SearchBar } from "./searchBar/SearchBar";
 import { WallpaperAPI } from "./Wallpaper";
+import { Setting } from "./settings/Settings";
 
 export{
     Todo,
@@ -13,5 +14,6 @@ export{
     Greeting,
     DateTime,
     SearchBar,
-    WallpaperAPI
+    WallpaperAPI,
+    Setting
 }

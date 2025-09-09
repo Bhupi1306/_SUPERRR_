@@ -1,7 +1,17 @@
 import './App.css'
-import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar, WallpaperAPI} from '../components'
+import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar, WallpaperAPI , Setting} from '../components'
 import { useEffect, useState } from 'react'
 import { saveImageToStorage } from '../components/Wallpaper'
+
+const defaultSettings= {
+    weather: true,
+    clock: true,
+    greeting: true,
+    quote: true,
+    todo: true,
+    searchBar: true,
+    wallpaperRefresh: true,
+  }
 
 
 export default function App() {
@@ -9,6 +19,21 @@ export default function App() {
   const [weatherMode, setWeatherMode] = useState(false)
   const [wallpaperURI, setWallpaperURI] = useState("")
   const [refreshTime, setRefreshTime] = useState(30) // in mins
+  const [settings, setSettings] = useState(defaultSettings)
+
+  useEffect(() => {
+    chrome.storage.sync.get("settings", (data) => {
+      if (data.settings) {
+        setSettings({ ...defaultSettings, ...data.settings })
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    chrome.storage.sync.set({ settings })
+    console.log("Settings saved:", settings)
+  }, [settings])
+
 
   // Some helper function
   const wallpaperApi = async() => {
@@ -64,13 +89,16 @@ export default function App() {
     <div>
 
       <div id='Bg' className={`  bg-cover bg-center `} 
-      style={{ backgroundImage: `url(${wallpaperURI.wallpaper})` }}
+      style={settings.wallpaperRefresh 
+        ? { backgroundImage: `url(${wallpaperURI.wallpaper})` } 
+        : {backgroundColor: 'black'}
+      }
       >
         <div className="absolute inset-0 bg-black/20"></div> 
         <div className='z-10 relative overflow-hidden h-screen max-w-screen'> 
-          <WeatherWidget
+          {settings.weather && <WeatherWidget
           weatherMode = {weatherMode}
-        />
+        />}
 
         <div className='grid grid-rows-3 h-full'>
           {/* <Goog/>  */}
@@ -79,18 +107,20 @@ export default function App() {
             <div className=''></div>
 
             <div className=''>
-              <DateTime
+             { settings.clock && <DateTime
                 weatherMode = {weatherMode}
-              />
+              />}
             </div>
 
-            <div className=' self-start justify-self-end pr-10 pt-7'><SearchBar/></div>
+            <div className=' self-start justify-self-end pr-10 pt-7'>{settings.searchBar && <SearchBar/>}</div>
           </div>
-          <Greeting/>
+         { settings.greeting && <Greeting/>}
         <div className='grid grid-cols-4 mb-7'>
-          <div></div>
-          <div className='col-span-2 justify-self-center place-self-end'><Qoute/></div>
-          <div className='justify-self-center place-self-end'><Todo/></div>
+          <div>
+            <Setting settings={settings} setSettings={setSettings}/> 
+          </div>
+          <div className='col-span-2 justify-self-center place-self-end'>{settings.quote && <Qoute/>}</div>
+          <div className='justify-self-center place-self-end'>{settings.todo && <Todo/>}</div>
         </div>
         </div>
 

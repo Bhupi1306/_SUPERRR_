@@ -2,7 +2,7 @@ import './App.css'
 import { Todo, WeatherWidget, Qoute, Greeting, DateTime, SearchBar, WallpaperAPI , Setting} from '../components'
 import { useEffect, useState } from 'react'
 import { saveImageToStorage } from '../components/Wallpaper'
-
+import { useSettings } from './useSettings'   
 const defaultSettings= {
     weather: true,
     clock: true,
@@ -19,21 +19,7 @@ export default function App() {
   const [weatherMode, setWeatherMode] = useState(false)
   const [wallpaperURI, setWallpaperURI] = useState("")
   const [refreshTime, setRefreshTime] = useState(30) // in mins
-  const [settings, setSettings] = useState(defaultSettings)
-
-  useEffect(() => {
-    chrome.storage.sync.get("settings", (data) => {
-      if (data.settings) {
-        setSettings({ ...defaultSettings, ...data.settings })
-      }
-    })
-  }, [])
-
-  useEffect(() => {
-    chrome.storage.sync.set({ settings })
-    console.log("Settings saved:", settings)
-  }, [settings])
-
+  const [settings, setSettings] = useSettings()
 
   // Some helper function
   const wallpaperApi = async() => {

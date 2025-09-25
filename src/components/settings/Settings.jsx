@@ -14,6 +14,8 @@ export const Setting = ({settings,setSettings}) => {
     { id: "searchBar", label: "Search Bar" },
     { id: "wallpaperRefresh", label: "Wallpaper Refresh" },
   ];
+
+  {/* absolute bottom-12 right-20  */}
   return (
     <div className="fixed bottom-6 left-6">
       {/* Settings Icon */}
@@ -27,7 +29,9 @@ export const Setting = ({settings,setSettings}) => {
 
         {/* Hover Box */}
         {open && (
-          <div className="absolute bottom-14 left-0 w-48 p-4 bg-white shadow-lg rounded-xl border border-gray-200">
+          <div className={`absolute bottom-14 left-0 w-48 p-4 bg-white/20 backdrop-blur-sm rounded-lg text-white p-4  shadow-lg mb-3 origin-bottom
+                            h-auto"}
+                            shadow-lg rounded-xl p-4`}>
             <h3 className="text-sm font-semibold mb-2">Settings</h3>
             {settingOptions.map((opt) => (
         <Toggle
